@@ -5,18 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <form action="" method="post">
-        {% csrf_token %}
-        <select name="food" id="food">
-            {% for food in foods %}
-            <option value="{{food.name}}">{{food.name}}</option>
-            {% endfor %}
-        </select>
-        
-    </form>
+    <div class="container">
+        <div class="row my-4">
+            <div class="col-md-12">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row form-group">
+                        <div class="col-md-3">
+                            <label class="form-label fs-4" for="food_consumed"><strong>Select Food to Add:</strong></label>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-select" name="food_consumed" id="food_consumed">
+                                {% for food in foods %}
+                                <option value="{{food.name}}">{{food.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-1 mx-2">
+                            <button class="btn btn-primary btn-xl" type="submit">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% for food in consumed_foods %}
+    {{food.food_consumed.name}} ==> {{food.food_consumed.carbs}} <br />
+    {% endfor %}
 </body>
 
 </html>
