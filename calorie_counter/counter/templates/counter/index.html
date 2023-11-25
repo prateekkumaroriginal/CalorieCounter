@@ -36,11 +36,63 @@
                 </form>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="my-4">Consumptions</h3>
+                <table class="table table-striped" id="table">
+                    <tr class="table-secondary">
+                        <th>Name</th>
+                        <th>Weight (g)</th>
+                        <th>Carbs (g)</th>
+                        <th>Protein (g)</th>
+                        <th>Fats (g)</th>
+                        <th>Calories (Kcal)</th>
+                    </tr>
+
+                    {% for food in consumed_foods %}
+                    <tr>
+                        <td>{{food.food_consumed.name}}</td>
+                        <td>{{food.food_consumed.weight}}</td>
+                        <td>{{food.food_consumed.carbs}}</td>
+                        <td>{{food.food_consumed.protein}}</td>
+                        <td>{{food.food_consumed.fats}}</td>
+                        <td>{{food.food_consumed.calories}}</td>
+                    </tr>
+                    {% endfor %}
+                    
+                    <tr>
+                        <td><b>Total</b></td>
+                        <td id="total-weight"></td>
+                        <td id="total-carbs"></td>
+                        <td id="total-protein"></td>
+                        <td id="total-fats"></td>
+                        <td id="total-calories"></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
     </div>
 
-    {% for food in consumed_foods %}
-    {{food.food_consumed.name}} ==> {{food.food_consumed.carbs}} <br />
-    {% endfor %}
 </body>
+<script>
+    let table = document.getElementById('table')
+    let weight=0, carbs=0, protein=0, fats=0, calories = 0
 
+    for (let i=1; i<table.rows.length-1; i++){
+        weight += parseFloat(table.rows[i].cells[1].innerHTML);
+        carbs += parseFloat(table.rows[i].cells[2].innerHTML);
+        protein += parseFloat(table.rows[i].cells[3].innerHTML);
+        fats += parseFloat(table.rows[i].cells[4].innerHTML);
+        calories += parseFloat(table.rows[i].cells[5].innerHTML);
+    }
+    
+    document.getElementById('total-weight').innerHTML = weight.toFixed(1)
+    document.getElementById('total-carbs').innerHTML = carbs.toFixed(1)
+    document.getElementById('total-protein').innerHTML = protein.toFixed(1)
+    document.getElementById('total-fats').innerHTML = fats.toFixed(1)
+    document.getElementById('total-calories').innerHTML = calories.toFixed(1)
+
+</script>
 </html>
